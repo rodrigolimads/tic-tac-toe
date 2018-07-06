@@ -5,7 +5,7 @@ import './index.css';
 function Square(props) {
   return (
     <button
-      className={"square" + (props.winnerSetIncluded ? " winner-item" : "")}
+      className={"square" + (props.belongWinnerSet ? " winner-item" : "")}
       onClick={props.onClick} >
       { props.value }
     </button>
@@ -13,11 +13,12 @@ function Square(props) {
 }
 
 class Board extends React.Component {
-  renderSquare(i) {
+  renderSquare(i, winnerSet) {
     return(
       <Square
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
+        belongWinnerSet={this.props.winnerSet.includes(i)}
       />
     );
   }
@@ -113,6 +114,7 @@ class Game extends React.Component {
           <Board
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
+            winnerSet={gameResult ? gameResult.winnerSet : []}
           />
         </div>
         <div className="game-info">
