@@ -19,6 +19,7 @@ class Board extends React.Component {
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
         belongWinnerSet={this.props.winnerSet.includes(i)}
+        key={i}
       />
     );
   }
@@ -28,8 +29,8 @@ class Board extends React.Component {
     return (
       <div>
         {
-          boards.map((squares) =>
-            <div className="board-row">
+          boards.map((squares, idx) =>
+            <div key={"board-" + idx} className="board-row">
               {
                 squares.map((squareNumber) =>
                   this.renderSquare(squareNumber)
